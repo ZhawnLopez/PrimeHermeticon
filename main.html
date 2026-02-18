@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HermetiCart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Styles -->
+    <style>
+        .rainbow-text {
+            background: linear-gradient(
+                90deg,
+                #ff0000,
+                #ff9900,
+                #ffff00,
+                #00ff00,
+                #0099ff,
+                #6600ff,
+                #ff00ff
+            );
+            background-size: 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbowMove 6s linear infinite;
+            padding: 4px 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .rainbow-text:hover {
+            box-shadow: 0 0 15px rgba(128, 0, 255, 0.6),
+                        0 0 30px rgba(128, 0, 255, 0.4);
+        }
+
+        @keyframes rainbowMove {
+            0% { background-position: 0% }
+            100% { background-position: 300% }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div id="navbar"></div>
+
+    <!-- Hero/First Section -->
+    <section class="bg-purple-600 text-white text-center py-16 px-6">
+        <h2 class="text-4xl font-bold mb-4">Welcome to HermetiCart</h2>
+        <p class="text-lg mb-6">The shop for premium products</p>
+        <button class="bg-white text-purple-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-200 transition">
+            Shop Now
+        </button>
+    </section>
+
+    <!-- Product of the Day -->
+    <section class="max-w-6xl mx-auto px-6 py-12">
+        <h3 class="text-2xl font-bold mb-6">🔥 Product of the Day</h3>
+        <div id="productOfDay" class="flex flex-col md:flex-row items-center gap-6">
+            <!-- JS injects Product of the Day -->
+        </div>
+    </section>
+
+    <!-- Recommended Products -->
+    <section class="bg-gray-900 text-white py-12">
+        <div class="max-w-6xl mx-auto px-6">
+            <h3 class="text-2xl font-bold mb-6">Recommended For You</h3>
+            
+            <div id="recommendedWrapper" class="overflow-hidden relative">
+                <div id="recommendedProducts" class="flex gap-6 transition-transform duration-500">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="assets/js/navbar.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -43,19 +43,42 @@
     </section>
 
 
-    <section class="reveal-section max-w-6xl mx-auto px-6 py-12">
+    <section id="productSection" class="max-w-6xl mx-auto px-6 py-12 hover-pop">
         <h3 class="text-2xl font-bold mb-6">Product of the Day</h3>
         <div id="productOfDay" class="flex flex-col md:flex-row items-center gap-6"></div>
     </section>
 
-    <section class="reveal-section py-12">
-        <div class="max-w-6xl mx-auto px-6">
-            <h3 class="text-2xl font-bold mb-6">Recommended For You</h3>
+    <section id="recommendedSection" class="py-16">
+    <div class="max-w-6xl mx-auto px-6">
+
+        <h3 class="text-2xl font-bold mb-8 text-center">
+            Recommended For You
+        </h3>
+
+        <div class="recommended-box rounded-3xl p-8 relative">
+
             <div id="recommendedWrapper" class="overflow-hidden relative">
-                <div id="recommendedProducts" class="flex gap-6 transition-transform duration-700 ease-in-out"></div>
+                <div id="recommendedProducts"
+                     class="flex gap-6 transition-transform duration-700 ease-in-out">
+                </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<section id="popularSection" class="py-16">
+    <div class="max-w-6xl mx-auto px-6">
+
+        <h3 class="text-2xl font-bold mb-10 text-center">
+            Popular Items
+        </h3>
+
+        <div id="popularGrid"
+             class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        </div>
+
+    </div>
+</section>
 
     <div id="cartOverlay"
          class="fixed inset-0 bg-black bg-opacity-50 hidden z-40 transition-opacity duration-300">

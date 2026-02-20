@@ -65,6 +65,28 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    function loadPopularItems() {
+    const popularContainer = document.getElementById("popularGrid");
+    if (!popularContainer) return;
+
+    const popularItems = products.slice(0, 6); // first 6 items
+
+    popularItems.forEach(product => {
+        popularContainer.innerHTML += `
+                <div class="bg-white rounded-2xl shadow-md p-6 text-center transition hover:scale-105 hover:shadow-xl duration-300">
+                    <img src="${product.image}" 
+                        class="w-full h-48 object-contain mb-4">
+                    <h4 class="font-semibold text-lg mb-2">${product.name}</h4>
+                    <p class="text-purple-600 font-bold mb-3">₱${product.price}</p>
+                    <button onclick="addToCart(${product.id})"
+                            class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition">
+                        Add to Cart
+                    </button>
+                </div>
+        `   ;
+        });
+    }
+
     // carousel slider
     function startSliding() {
         const recommendedContainer = document.getElementById("recommendedProducts");
@@ -91,6 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- INITIALIZE ---
     renderProductOfDay();
     renderRecommendedFlex();
+    loadPopularItems();
     startSliding();
     updateCartDisplay(); // from main.js
 

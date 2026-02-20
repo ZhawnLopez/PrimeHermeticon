@@ -114,3 +114,28 @@ body {
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
+.hover-pop {
+    transition: transform 0.4s ease,
+                box-shadow 0.4s ease;
+}
+
+.hover-pop:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+}
+
+.recommended-box {
+    background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.recommended-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 70px rgba(0,0,0,0.12);
+}
+
+#popularSection {
+    background: linear-gradient(to bottom, #ffffff, #f9fafb);
+}
+

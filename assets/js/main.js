@@ -1,4 +1,3 @@
-// --- Sample Product Data
 const products = [
     { id: 1, name: "Wireless Mouse", price: 1499, image: "assets/images/smartwatch1.png", description: "Ergonomic high-performance wireless mouse." },
     { id: 2, name: "Mechanical Keyboard", price: 3499, image: "assets/images/mechanicalkeyboard1.jpg", description: "RGB mechanical keyboard with premium switches." },

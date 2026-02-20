@@ -1,0 +1,116 @@
+.rainbow-text {
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(
+        90deg,
+        #ff0000,
+        #ff9900,
+        #ffff00,
+        #00ff00,
+        #0099ff,
+        #6600ff,
+        #ff00ff
+    );
+    background-size: 300%;
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    animation: rainbowMove 6s linear infinite;
+}
+
+/* Glow Layer */
+.rainbow-text::before {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    background: linear-gradient(
+        90deg,
+        #ff0000,
+        #ff9900,
+        #ffff00,
+        #00ff00,
+        #0099ff,
+        #6600ff,
+        #ff00ff
+    );
+    background-size: 300%;
+
+    filter: blur(8px);
+    opacity: 0.6;
+
+    animation: rainbowMove 6s linear infinite;
+}
+
+
+@keyframes rainbowMove {
+    0% { background-position: 0% }
+    100% { background-position: 300% }
+}
+
+
+body {
+    background-color: rgb(255, 255, 255);
+    transition: background-color 0.15s linear;
+}
+
+
+#heroCard {
+    border-radius: 2rem;
+    overflow: hidden;
+    background: white;
+    transition: all 0.4s ease;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+    animation: breathe 6s ease-in-out infinite;
+}
+
+@keyframes breathe {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+
+.reveal-section {
+    position: relative;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.9s ease;
+}
+
+.reveal-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 4px;
+    width: 0%;
+    background: linear-gradient(90deg, #8b5cf6, #3b82f6);
+    transition: width 0.9s ease;
+}
+
+.reveal-section.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-section.active::before {
+    width: 100%;
+}
+
+
+.brand-badge {
+    padding: 6px 14px;
+    border-radius: 12px;
+    background: #f3f4f6;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.brand-badge:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+

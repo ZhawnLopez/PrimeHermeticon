@@ -240,12 +240,26 @@ function startRecommendedCarousel() {
 
 async function checkout() {
     try {
+        // send session cookie so PHP sees the session
         const res = await fetch("../backend/checkout.php", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ cart })
+            credentials: 'same-origin' 
         });
-        const data = await res.json();
+
+        const text = await res.text();
+
+        let data;
+        try {
+            data = text ? JSON.parse(text) : null;
+        } catch (err) {
+            console.error("Invalid JSON from checkout.php:", text);
+            throw new Error("Server returned invalid response. Check server logs (500).");
+        }
+
+        if (!data) {
+            throw new Error("Empty response from server.");
+        }
+
         if (data.success) {
             alert("Order placed! Order ID: " + (data.order_id || "unknown"));
             cart = [];
@@ -253,11 +267,11 @@ async function checkout() {
             updateCartDisplay();
             toggleCart();
         } else {
-            alert("Checkout failed: " + (data.message || "Unknown"));
+            alert("Checkout failed: " + (data.message || "Unknown error"));
         }
     } catch (err) {
         console.error("Checkout error:", err);
-        alert("Checkout request failed.");
+        alert("Checkout failed: " + err.message);
     }
 }
 

@@ -20,7 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `hermeticart_db`
 --
-
+CREATE DATABASE IF NOT EXISTS hermeticart_db;
+USE hermeticart_db;
 -- --------------------------------------------------------
 
 --

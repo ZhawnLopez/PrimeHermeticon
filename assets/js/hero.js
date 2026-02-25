@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const heroProduct = products.length > 0 ? products[0] : null;
     if (heroProduct && heroImage) {
-        heroImage.src = `../assets/images/${heroProduct.image_url}`;
+        heroImage.src = `../${heroProduct.image_url}`;
         title.textContent = heroProduct.name;
         subtitle.textContent = heroProduct.description;
         button.onclick = () => addToCart(heroProduct.product_id);

@@ -1,13 +1,14 @@
 # PrimeHermeticon
 
-<?php
-session_start();
-
-if (!isset($_SESSION["id"])) {
-    header("Location: login.php");
-    exit();
-}
-?>
+CREATE TABLE order_items (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  order_id INT NOT NULL,
+  product_id INT NOT NULL,
+  quantity INT NOT NULL,
+  price DECIMAL(10,2) NOT NULL,
+  FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE,
+  FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
+);
 
 
 CREATE TABLE cart (

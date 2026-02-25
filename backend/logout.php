@@ -2,7 +2,6 @@
 session_start();
 header('Content-Type: application/json');
 
-// Only accept POST for logout
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(['success' => false, 'message' => 'Invalid request']);
     exit;

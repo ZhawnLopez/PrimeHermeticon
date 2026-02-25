@@ -1,52 +1,58 @@
-let products = []; 
+if (typeof products === 'undefined') {
+    var products = [];
+}
 
 document.addEventListener("DOMContentLoaded", async () => {
 
-    try {
-        const response = await fetch("../backend/get_products.php");
-        if (!response.ok) throw new Error("Network response was not ok");
-        products = await response.json();
-        console.log("Fetched products:", products);
-    } catch (error) {
-        console.error("Failed to fetch products:", error);
-        products = [];
+    if (!products || products.length === 0) {
+        try {
+            const response = await fetch("../backend/get_products.php");
+            if (!response.ok) throw new Error("Network response was not ok");
+            products = await response.json();
+            window.products = products;
+            console.log("Fetched products:", products);
+        } catch (error) {
+            console.error("Failed to fetch products:", error);
+            products = [];
+        }
     }
 
     async function renderProductOfDay() {
-    const container = document.getElementById("productOfDay");
-    if (!container) return;
+        const container = document.getElementById("productOfDay");
+        if (!container) return;
 
-    try {
-        const response = await fetch("../backend/get_product_of_day.php");
-        const product = await response.json();
+        try {
+            const response = await fetch("../backend/get_product_of_day.php");
+            const product = await response.json();
 
-        if (!product) {
-            container.innerHTML = `<p class="text-gray-500">No product available today.</p>`;
-            return;
-        }
+            if (!product) {
+                container.innerHTML = `<p class="text-gray-500">No product available today.</p>`;
+                return;
+            }
 
-        container.innerHTML = `
-            <div class="bg-gray-50 rounded-3xl shadow p-6 
-                        flex flex-col md:flex-row items-center gap-6 w-full">
+            container.innerHTML = `
+                <div class="bg-gray-50 rounded-3xl shadow p-6 
+                            flex flex-col md:flex-row items-center gap-6 w-full">
 
-                <div class="w-full md:w-64 h-64 bg-gray-100 rounded overflow-hidden flex items-center justify-center">
-                    <img src="../${product.image_url}"
-                         class="w-full h-full object-cover"
-                         alt="${product.name}">
+                    <div class="w-full md:w-64 h-64 bg-gray-100 rounded overflow-hidden flex items-center justify-center">
+                        <img src="../${product.image_url}"
+                             class="w-full h-full object-cover"
+                             alt="${product.name}">
+                    </div>
+
+                    <div class="flex-1 text-left">
+                        <h4 class="text-2xl font-bold mb-2">${product.name}</h4>
+                        <p class="text-gray-600 mb-3">${product.description}</p>
+                        <p class="text-purple-600 font-bold text-lg mb-4">
+                            ₱${parseFloat(product.price).toLocaleString()}
+                        </p>
+                        <!-- FIX: was product.id (undefined) — now product.product_id -->
+                        <button onclick="addToCart(${product.product_id})"
+                            class="bg-purple-600 text-white px-5 py-2 rounded-lg hover:bg-purple-700 transition">
+                            Add to Cart
+                        </button>
+                    </div>
                 </div>
-
-                <div class="flex-1 text-left">
-                    <h4 class="text-2xl font-bold mb-2">${product.name}</h4>
-                    <p class="text-gray-600 mb-3">${product.description}</p>
-                    <p class="text-purple-600 font-bold text-lg mb-4">
-                        ₱${parseFloat(product.price).toLocaleString()}
-                    </p>
-                    <button onclick="addToCart(${product.id})"
-                        class="bg-purple-600 text-white px-5 py-2 rounded-lg hover:bg-purple-700 transition">
-                        Add to Cart
-                    </button>
-                </div>
-            </div>
             `;
         } catch (error) {
             console.error("Failed to load Product of the Day:", error);
@@ -57,8 +63,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     function renderRecommendedFlex() {
         const recommendedContainer = document.getElementById("recommendedProducts");
         if (!recommendedContainer) return;
-
-        if (products.length === 0) return; 
+        if (products.length === 0) return;
 
         recommendedContainer.innerHTML = "";
         products.forEach(product => {
@@ -69,7 +74,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                     </div>
                     <h4 class="font-semibold mb-2 text-center">${product.name}</h4>
                     <p class="text-purple-600 font-bold mb-3 text-center">₱${parseFloat(product.price).toLocaleString()}</p>
-                    <button onclick="addToCart(${product.id})"
+                    <!-- FIX: was product.id (undefined) — now product.product_id -->
+                    <button onclick="addToCart(${product.product_id})"
                         class="w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700 transition">
                         Add to Cart
                     </button>
@@ -78,35 +84,28 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    // --- Popular Items (Grid) ---
     function loadPopularItems() {
-    const popularContainer = document.getElementById("popularGrid");
-    if (!popularContainer) return;
+        const popularContainer = document.getElementById("popularGrid");
+        if (!popularContainer) return;
+        if (products.length === 0) return;
 
-    if (products.length === 0) return; 
+        popularContainer.innerHTML = "";
+        const popularItems = products.slice(0, 6);
 
-    popularContainer.innerHTML = "";
-
-    const popularItems = products.slice(0, 6);
-
-    popularItems.forEach(product => {
-        popularContainer.innerHTML += `
-            <div class="bg-white rounded-2xl shadow-md p-6 text-center transition hover:scale-105 hover:shadow-xl duration-300">
-                <img src="../${product.image_url}"
-                     class="w-full h-48 object-contain mb-4" 
-                     alt="${product.name}">
-
-                <h4 class="font-semibold text-lg mb-2">
-                    ${product.name}
-                </h4>
-
-                <p class="text-purple-600 font-bold mb-3">
-                    ₱${parseFloat(product.price).toLocaleString()}
-                </p>
-
-                <button onclick="addToCart(${product.id})"
-                    class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition">
-                    Add to Cart
+        popularItems.forEach(product => {
+            popularContainer.innerHTML += `
+                <div class="bg-white rounded-2xl shadow-md p-6 text-center transition hover:scale-105 hover:shadow-xl duration-300">
+                    <img src="../${product.image_url}"
+                         class="w-full h-48 object-contain mb-4"
+                         alt="${product.name}">
+                    <h4 class="font-semibold text-lg mb-2">${product.name}</h4>
+                    <p class="text-purple-600 font-bold mb-3">
+                        ₱${parseFloat(product.price).toLocaleString()}
+                    </p>
+                    <!-- FIX: was product.id (undefined) — now product.product_id -->
+                    <button onclick="addToCart(${product.product_id})"
+                        class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition">
+                        Add to Cart
                     </button>
                 </div>
             `;
@@ -120,7 +119,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         let currentIndex = 0;
         const totalItems = recommendedContainer.children.length;
-        const itemWidth = recommendedContainer.children[0].offsetWidth + 24;
+        const itemWidth  = recommendedContainer.children[0].offsetWidth + 24;
         let slideInterval;
 
         function slide() {
@@ -140,14 +139,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-await renderProductOfDay(); 
-if (products.length > 0) {
-    renderRecommendedFlex();
-    loadPopularItems();
-    startSliding();
-}
+    await renderProductOfDay();
+    if (products.length > 0) {
+        renderRecommendedFlex();
+        loadPopularItems();
+        startSliding();
+    }
 
-if (typeof updateCartDisplay === "function") {
-    updateCartDisplay();
-}
+    if (typeof updateCartDisplay === "function") {
+        updateCartDisplay();
+    }
 });

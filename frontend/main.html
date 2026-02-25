@@ -2,86 +2,265 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>HermetiCart</title>
+    <title>HermetiCart — Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/styles.css">
+
+    <style>
+    body { background: #0d0f14; }
+
+    h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; }
+
+    section { position: relative; z-index: 1; }
+
+    #heroSection {
+        min-height: 580px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4rem 1.5rem;
+    }
+
+    #heroCard {
+        max-width: 780px;
+        width: 100%;
+        padding: 4rem 3rem;
+        text-align: center;
+    }
+
+    #heroTitle {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(2rem, 5vw, 3.4rem);
+        font-weight: 700;
+        color: #f0ead6;
+        margin-bottom: 1rem;
+        line-height: 1.15;
+        letter-spacing: -0.01em;
+    }
+
+    #heroSubtitle {
+        font-size: 0.95rem;
+        color: #8a8fa8;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 2rem;
+    }
+
+    .hero-cta {
+        display: inline-block;
+        background: linear-gradient(135deg, #c9a84c, #a88030);
+        color: #0d0f14;
+        font-family: 'DM Sans', sans-serif;
+        font-weight: 500;
+        font-size: 0.78rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 0.85rem 2.5rem;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 28px rgba(201,168,76,0.25);
+    }
+
+    .hero-cta:hover {
+        background: linear-gradient(135deg, #e8c97a, #c9a84c);
+        transform: translateY(-3px);
+        box-shadow: 0 14px 40px rgba(201,168,76,0.4);
+    }
+
+    /* ── Sections ── */
+    .section-label {
+        font-size: 0.7rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #c9a84c;
+        margin-bottom: 0.4rem;
+        font-family: 'DM Sans', sans-serif;
+    }
+
+    .section-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(1.6rem, 3vw, 2.4rem);
+        font-weight: 700;
+        color: #f0ead6;
+        margin-bottom: 2.5rem;
+        line-height: 1.2;
+    }
+
+    /* ── Product Card ── */
+    .product-card {
+        background: #181c26;
+        border: 1px solid rgba(201,168,76,0.12);
+        border-radius: 16px;
+        padding: 1.75rem;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .product-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4), transparent);
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .product-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.2);
+        border-color: rgba(201,168,76,0.25);
+    }
+
+    .product-card:hover::before { opacity: 1; }
+
+    .product-img-wrap {
+        background: #0d0f14;
+        border-radius: 10px;
+        height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.25rem;
+        overflow: hidden;
+    }
+
+    .product-img-wrap img {
+        max-height: 160px;
+        object-fit: contain;
+        transition: transform 0.4s ease;
+        filter: drop-shadow(0 8px 16px rgba(0,0,0,0.5));
+    }
+
+    .product-card:hover .product-img-wrap img { transform: scale(1.06); }
+
+    .product-name {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #f0ead6;
+        margin-bottom: 0.3rem;
+    }
+
+    .product-price {
+        color: #c9a84c;
+        font-size: 1.05rem;
+        font-weight: 500;
+        font-family: 'DM Sans', sans-serif;
+    }
+
+    /* ── Cart Drawer ── */
+    #cartDrawer {
+        background: #13161e;
+        border-left: 1px solid rgba(201,168,76,0.15);
+    }
+
+    #cartDrawer h3 {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.6rem;
+        color: #f0ead6;
+    }
+
+    #cartTotal { color: #c9a84c; font-family: 'DM Sans', sans-serif; font-size: 1.1rem; }
+
+    /* ── Recommended carousel cards ── */
+    .rec-card {
+        background: #181c26;
+        border: 1px solid rgba(201,168,76,0.12);
+        border-radius: 14px;
+        padding: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 240px;
+        max-width: 240px;
+        transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .rec-card:hover {
+        border-color: rgba(201,168,76,0.3);
+        transform: translateY(-4px);
+    }
+    </style>
 </head>
 
-<body class="relative overflow-x-hidden">
-
-    <div class="fixed top-20 left-10 w-40 h-40 bg-purple-500 opacity-10 blur-3xl rounded-full pointer-events-none"></div>
-    <div class="fixed bottom-20 right-20 w-52 h-52 bg-blue-500 opacity-10 blur-3xl rounded-full pointer-events-none"></div>
-    <div class="fixed top-1/2 left-0 w-24 h-96 bg-gradient-to-b from-purple-500 to-blue-500 opacity-10 blur-2xl pointer-events-none"></div>
-    <div class="fixed top-1/3 right-0 w-24 h-96 bg-gradient-to-b from-blue-500 to-purple-500 opacity-10 blur-2xl pointer-events-none"></div>
+<body>
+    <!-- ambient glows -->
+    <div style="position:fixed; top:5%; left:-10%; width:400px; height:400px; background:radial-gradient(circle, rgba(201,168,76,0.06), transparent 70%); pointer-events:none; z-index:0;"></div>
+    <div style="position:fixed; bottom:10%; right:-5%; width:350px; height:350px; background:radial-gradient(circle, rgba(100,120,200,0.05), transparent 70%); pointer-events:none; z-index:0;"></div>
 
     <div id="navbar"></div>
 
-    <section id="heroSection" class="relative w-full h-[600px] flex items-center justify-center">
-        <div id="heroCard" class="relative w-full max-w-3xl p-10 text-center overflow-hidden">
-            <div id="heroBg1" class="absolute inset-0 transition-opacity duration-1000"></div>
-            <div id="heroBg2" class="absolute inset-0 transition-opacity duration-1000 opacity-0"></div>
-
-            <div class="relative z-10">
-                <h2 id="heroTitle" class="text-4xl font-bold mb-4 text-white transition-colors duration-700">
-                    Welcome to HermetiCart
-                </h2>
-                <p id="heroSubtitle" class="text-lg mb-6 text-gray-100 transition-colors duration-700">
-                    The shop for premium products
-                </p>
-                <button id="heroButton" class="px-6 py-2 rounded-lg font-semibold bg-white text-black hover:bg-gray-200 transition">
-                    Shop Now
-                </button>
+    <!-- ── Hero ── -->
+    <section id="heroSection">
+        <div id="heroCard">
+            <div id="heroBg1" class="absolute inset-0 transition-opacity duration-1000" style="border-radius:24px;"></div>
+            <div id="heroBg2" class="absolute inset-0 transition-opacity duration-1000 opacity-0" style="border-radius:24px;"></div>
+            <div style="position:relative; z-index:10;">
+                <p id="heroSubtitle">Premium Quality Products and the Latest Tech</p>
+                <h1 id="heroTitle">Welcome to HermetiCart</h1>
+                <a href="shop.html" class="hero-cta">Explore Collection</a>
             </div>
         </div>
     </section>
 
-    <section class="max-w-6xl mx-auto px-6 py-12 hover-pop">
-        <h3 class="text-2xl font-bold mb-6">Product of the Day</h3>
-        <div id="productOfDay" class="flex flex-col md:flex-row items-center gap-6">
-        </div>
+    <!-- ── Product of Day ── -->
+    <section style="max-width:1100px; margin:0 auto; padding:4rem 2rem;">
+        <p class="section-label">Spotlight</p>
+        <h2 class="section-title">Product of the Day</h2>
+        <div id="productOfDay"></div>
     </section>
 
-    <section id="recommendedSection" class="max-w-6xl mx-auto px-6 py-12 hover-pop">
-        <div class="recommended-box rounded-3xl p-8">
-            <h3 class="text-2xl font-bold mb-8">Recommended For You</h3>
-            <div id="recommendedWrapper" class="overflow-hidden relative">
-                <div id="recommendedProducts" class="flex gap-6 transition-transform duration-700 ease-in-out">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="popularSection" class="py-16">
-        <div class="max-w-6xl mx-auto px-6">
-            <h3 class="text-2xl font-bold mb-10 text-center">Popular Items</h3>
-            <div id="popularGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    <!-- ── Recommended ── -->
+    <section id="recommendedSection" style="max-width:1100px; margin:0 auto; padding:2rem 2rem 4rem;">
+        <div style="background:#13161e; border:1px solid rgba(201,168,76,0.15); border-radius:24px; padding:2.5rem; position:relative; overflow:hidden;">
+            <div style="position:absolute; inset:0; background:radial-gradient(ellipse at top right, rgba(201,168,76,0.04), transparent 65%); pointer-events:none;"></div>
+            <p class="section-label">Curated For You</p>
+            <h2 class="section-title">Recommended</h2>
+            <div id="recommendedWrapper" style="overflow:hidden; position:relative;">
+                <div id="recommendedProducts" style="display:flex; gap:1.25rem; transition:transform 0.6s ease;"></div>
             </div>
         </div>
     </section>
 
-    <div id="cartOverlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40 transition-opacity duration-300"></div>
+    <!-- ── Popular ── -->
+    <section id="popularSection" style="padding:4rem 0 6rem; background:linear-gradient(to bottom, #0d0f14, #13161e);">
+        <div style="max-width:1100px; margin:0 auto; padding:0 2rem;">
+            <p class="section-label" style="text-align:center;">Best Sellers</p>
+            <h2 class="section-title" style="text-align:center;">Popular Items</h2>
+            <div id="popularGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:1.75rem;"></div>
+        </div>
+    </section>
 
-    <div id="cartDrawer" class="fixed top-0 right-0 h-full w-96 max-w-full bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col">
-        <div class="p-6 border-b flex justify-between items-center">
-            <h3 class="text-xl font-bold">Your Cart</h3>
-            <div class="flex items-center gap-2">
-                <button onclick="removeAllItems()" class="text-sm text-red-500 hover:text-red-700">Remove All</button>
-                <button onclick="toggleCart()" class="text-2xl">&times;</button>
+    <!-- ── Cart Overlay ── -->
+    <div id="cartOverlay" class="fixed inset-0 z-40" style="display:none; background:rgba(0,0,0,0.7); backdrop-filter:blur(4px);"></div>
+
+    <!-- ── Cart Drawer ── -->
+    <div id="cartDrawer" class="fixed top-0 right-0 h-full z-50 flex flex-col" style="width:380px; max-width:100%; transform:translateX(100%); transition:transform 0.3s ease;">
+        <div style="padding:1.75rem; border-bottom:1px solid rgba(201,168,76,0.15); display:flex; justify-content:space-between; align-items:center;">
+            <h3>Your Cart</h3>
+            <div style="display:flex; align-items:center; gap:1rem;">
+                <button onclick="removeAllItems()" style="font-size:0.72rem; color:#8a8fa8; letter-spacing:0.08em; text-transform:uppercase; background:none; border:none; cursor:pointer; transition:color 0.2s;" onmouseover="this.style.color='#c0454a'" onmouseout="this.style.color='#8a8fa8'">Clear All</button>
+                <button onclick="toggleCart()" style="background:none; border:none; color:#8a8fa8; font-size:1.4rem; cursor:pointer; line-height:1; transition:color 0.2s;" onmouseover="this.style.color='#f0ead6'" onmouseout="this.style.color='#8a8fa8'">&times;</button>
             </div>
         </div>
 
-        <div id="drawerItems" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+        <div id="drawerItems" style="flex:1; overflow-y:auto; padding:1.5rem; display:flex; flex-direction:column; gap:1rem;"></div>
 
-        <div class="p-6 border-t">
-            <div class="flex justify-between font-bold text-lg mb-4">
-                <span>Total:</span>
-                <span id="cartTotal">₱0.00</span>
+        <div style="padding:1.5rem; border-top:1px solid rgba(201,168,76,0.15);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem;">
+                <span style="font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; color:#8a8fa8; font-family:'DM Sans',sans-serif;">Total</span>
+                <span id="cartTotal" style="font-size:1.3rem; font-family:'Cormorant Garamond',serif; font-weight:600; color:#c9a84c;">₱0.00</span>
             </div>
-            <button id="checkoutBtn" class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition">
-                Checkout
-            </button>
+            <button id="checkoutBtn" class="btn-primary" style="width:100%; padding:0.9rem; font-size:0.8rem;">Proceed to Checkout</button>
         </div>
     </div>
 
@@ -90,41 +269,36 @@
     <script src="../assets/js/carousel.js"></script>
 
     <script>
-        window.addEventListener("scroll", () => {
-            const scrollTop = window.scrollY;
-            const docHeight = document.body.scrollHeight - window.innerHeight;
-            const progress = Math.min(scrollTop / docHeight, 1);
-            const shade = Math.floor(255 - (255 * progress));
-            document.body.style.backgroundColor = `rgb(${shade}, ${shade}, ${shade})`;
-        });
+    window.addEventListener("scroll", () => {
+        const progress = Math.min(window.scrollY / (document.body.scrollHeight - window.innerHeight), 1);
+        const darkness = Math.floor(13 + progress * 6);
+        document.body.style.backgroundColor = `rgb(${darkness}, ${darkness + 2}, ${darkness + 6})`;
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const bg1 = document.getElementById("heroBg1");
+        const bg2 = document.getElementById("heroBg2");
+        const gradients = [
+            "linear-gradient(135deg, rgba(201,168,76,0.12), rgba(13,15,20,0))",
+            "linear-gradient(135deg, rgba(80,100,180,0.1), rgba(13,15,20,0))",
+            "linear-gradient(135deg, rgba(160,80,80,0.1), rgba(13,15,20,0))",
+            "linear-gradient(135deg, rgba(60,140,120,0.08), rgba(13,15,20,0))",
+            "linear-gradient(135deg, rgba(201,168,76,0.06), rgba(80,100,180,0.08))",
+        ];
+        let current = 0, activeLayer = bg1;
+
+        function switchBg() {
+            const next = activeLayer === bg1 ? bg2 : bg1;
+            current = (current + 1) % gradients.length;
+            next.style.background = gradients[current];
+            next.style.opacity = "1";
+            activeLayer.style.opacity = "0";
+            activeLayer = next;
+        }
+        bg1.style.background = gradients[0];
+        bg1.style.opacity = "1";
+        setInterval(switchBg, 5000);
+    });
     </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const bg1 = document.getElementById("heroBg1");
-            const bg2 = document.getElementById("heroBg2");
-            const gradients = [
-                "linear-gradient(135deg, #6366f1, #8b5cf6)",
-                "linear-gradient(135deg, #ec4899, #8b5cf6)",
-                "linear-gradient(135deg, #06b6d4, #3b82f6)",
-                "linear-gradient(135deg, #10b981, #3b82f6)",
-                "linear-gradient(135deg, #111827, #1f2937)"
-            ];
-            let current = 0;
-            let activeLayer = bg1;
-
-            function switchBackground() {
-                const nextLayer = activeLayer === bg1 ? bg2 : bg1;
-                current = (current + 1) % gradients.length;
-                nextLayer.style.background = gradients[current];
-                nextLayer.style.opacity = "1";
-                activeLayer.style.opacity = "0";
-                activeLayer = nextLayer;
-            }
-            bg1.style.background = gradients[0];
-            setInterval(switchBackground, 4000);
-        });
-    </script>
-
 </body>
 </html>

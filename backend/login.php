@@ -23,12 +23,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["name"] = $user["username"];
         $_SESSION["role"] = $user["role"];
 
-        // If AJAX request, return JSON
         if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
             echo json_encode(['success' => true, 'user_id' => $user['user_id'], 'username' => $user['username']]);
             exit;
         } else {
-            // fallback for normal form submit
             header("Location: ../frontend/welcome.php");
             exit();
         }

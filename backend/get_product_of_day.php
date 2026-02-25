@@ -14,11 +14,6 @@ if ($conn->connect_error) {
     exit;
 }
 
-/*
-    Daily random logic:
-    use the current date
-    same product for the whole day.
-*/
 $today = date('Y-m-d');
 $seed = crc32($today);
 
